@@ -1,0 +1,6 @@
+E:\Учеба_3_семестр\ИСП\C#\PluginContracts\bin\Debug\PluginContracts.dll
+E:\Учеба_3_семестр\ИСП\C#\PluginContracts\bin\Debug\PluginContracts.pdb
+E:\Учеба_3_семестр\ИСП\C#\PluginContracts\obj\Debug\PluginContracts.csprojResolveAssemblyReference.cache
+E:\Учеба_3_семестр\ИСП\C#\PluginContracts\obj\Debug\PluginContracts.csproj.CoreCompileInputs.cache
+E:\Учеба_3_семестр\ИСП\C#\PluginContracts\obj\Debug\PluginContracts.dll
+E:\Учеба_3_семестр\ИСП\C#\PluginContracts\obj\Debug\PluginContracts.pdb

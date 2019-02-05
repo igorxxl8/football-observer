@@ -1,0 +1,317 @@
+﻿<Window x:Class="FootballManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Футбольный обозреватель" Height="350" Width="600"
+        MinHeight="350" MinWidth="600" 
+        WindowStartupLocation="CenterScreen">
+    <Window.InputBindings>
+        <KeyBinding x:Name="OpenKey" Command="Open"
+                    Gesture="CTRL+O"/>
+        <KeyBinding x:Name="SaveKey" Command="Save"
+                    Gesture="CTRL+S"/>
+        <KeyBinding x:Name="ExitKey" Command="Close"
+                    Gesture="CTRL+E"/>
+        <KeyBinding x:Name="AddPlKey" Command="Cut"
+                    Gesture="CTRL+P"/>
+        <KeyBinding x:Name="AddClKey" Command="Copy"
+                    Gesture="CTRL+F"/>
+        <KeyBinding x:Name="AddLKey" Command="Print"
+                    Gesture="CTRL+L"/>
+    </Window.InputBindings>
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="MenuItem_Click"/>
+        <CommandBinding Command="ApplicationCommands.Save"
+                        Executed="MenuItem_Click_1"/>
+        <CommandBinding Command="ApplicationCommands.Cut"
+                        Executed="AddPlayer_Click"/>
+        <CommandBinding Command="ApplicationCommands.Copy"
+                        Executed="AddClub_Click"/>
+        <CommandBinding Command="ApplicationCommands.Print"
+                        Executed="AddLeague_Click"/>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="ExitBut_Click"/>
+    </Window.CommandBindings>
+    <Window.Resources>
+        <Style x:Key="menuStyle" TargetType="Menu">
+            <Setter Property="Background" Value="LightSlateGray"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        <Style x:Key="menuIemStyle" TargetType="MenuItem">
+            <Setter Property="Background" Value="LightSlateGray"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="BorderThickness" Value="0"></Setter>
+            <Setter Property="Padding" Value="8"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="Black"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="buttonStyle" TargetType="Button">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="10" Direction="300" Color="BlueViolet"></DropShadowEffect>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="Purple" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="RenderTransformOrigin"
+              Value=".5,.5" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                </Trigger>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetProperty="Height" >
+                                <DoubleAnimation From="20" To="30"
+                                                 Duration="0:0:3">
+                                    <DoubleAnimation.EasingFunction>
+                                        <ElasticEase EasingMode="EaseOut" Oscillations="5"></ElasticEase>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetProperty="Height" >
+                                <DoubleAnimation From="30" To="20"
+                                                 Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="comboBoxStyle" TargetType="ComboBox">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="10" Direction="300" Color="BlueViolet"></DropShadowEffect>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetProperty="Height" >
+                                <DoubleAnimation From="20" To="30"
+                                                 Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetProperty="Height" >
+                                <DoubleAnimation From="30" To="20"
+                                                 Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <Trigger Property="SelectedItem" Value="0">
+                    <Setter Property="Background" Value="Purple"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="boxItemStyle" TargetType="ComboBoxItem">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="5" Direction="300" Color="BlueViolet"></DropShadowEffect>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Background" Value="Ivory"></Setter>
+            <Setter Property="RenderTransformOrigin"
+              Value=".5,.5" />
+        </Style>
+        <Style x:Key="normal" TargetType="ListViewItem">
+            <Setter Property="Background" Value="LightSteelBlue"></Setter>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="3"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter Property="Background" Value="PaleVioletRed"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                </Trigger>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(ListViewItem.Background).(SolidColorBrush.Color)">
+                                <LinearColorKeyFrame Value="CadetBlue"  KeyTime="00:00:02"/>
+                                <DiscreteColorKeyFrame Value="Brown"  KeyTime="00:00:2.5"/>
+                                <SplineColorKeyFrame Value="LightSteelBlue"  KeyTime="00:00:4.5" KeySpline="0.6,0.0 0.9,0.00"/>
+                            </ColorAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ListBoxItem" x:Key="ListBoxItemStyle">
+            <Setter Property="Background" Value="LightSteelBlue"></Setter>
+            <Style.Triggers>
+            <EventTrigger RoutedEvent="Loaded">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetProperty="(ListBoxItem.Background).(SolidColorBrush.Color)">
+                            <LinearColorKeyFrame Value="CadetBlue"  KeyTime="00:00:02"/>
+                            <DiscreteColorKeyFrame Value="Brown"  KeyTime="00:00:2.5"/>
+                            <SplineColorKeyFrame Value="LightSteelBlue"  KeyTime="00:00:4.5" KeySpline="0.6,0.0 0.9,0.00"/>
+                        </ColorAnimationUsingKeyFrames>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            </Style.Triggers>
+        </Style>
+        <DataTemplate x:Key="ClubTempl">
+            <Border BorderBrush="DarkSlateBlue" BorderThickness="2" CornerRadius="2" Padding="5" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="LogoPathC" Width="0" Text="{Binding LogoPath}" Visibility="Hidden" ></TextBox>
+                    <Image Source="{Binding ElementName=LogoPathC, Path=Text}" Width="80" Height="80"></Image>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Padding="10" Text="Название:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Grid.Column="1" Padding="10" Text="{Binding Name}"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Grid.Row="1" Padding="10" Text="Тренер:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Grid.Column="1" Padding="10" Grid.Row="1" Text="{Binding Coach}"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Grid.Row="2" Padding="10" Text="Лига:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Grid.Column="1" Padding="10" Grid.Row="2" Text="{Binding League.Name}"></TextBlock>
+                    </Grid>
+                    <TextBlock VerticalAlignment="Center" Grid.Column="2" Padding="10" Text="Футболисты:"></TextBlock>
+                    <ListBox Grid.Column="4" ItemsSource="{Binding Players}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="LeaTempl">
+            <Border BorderBrush="DarkSlateBlue" BorderThickness="2" CornerRadius="2" Padding="5" Margin="5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Width="0" x:Name="LogoPathL" Text="{Binding LogoPath}" Visibility="Hidden" ></TextBox>
+                    <Image Source="{Binding ElementName=LogoPathL, Path=Text}" Height="80" Width="80"></Image>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Padding="10" Text="Название:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Padding="10" Grid.Column="1" Text="{Binding Name}"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Padding="10" Grid.Row="1" Text="Страна:"></TextBlock>
+                        <TextBlock VerticalAlignment="Center" Padding="10" Grid.Column="1" Grid.Row="1" Text="{Binding Country}"></TextBlock>
+                    </Grid>
+                    <TextBlock Grid.Column="2" Padding="10" VerticalAlignment="Center" Text="Клубы:"></TextBlock>
+                    <ListBox Grid.Column="3" VerticalContentAlignment="Center" ItemsSource="{Binding Clubs}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Background="AliceBlue" x:Name="PluginGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition Height="0.8*"></RowDefinition>
+            <RowDefinition Height="0"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Menu Style="{StaticResource menuStyle}" Grid.Row="0" x:Name="ProgramMenu">
+            <MenuItem ItemContainerStyle="{StaticResource menuIemStyle}" Header="Файл" ToolTip="Работа с файлами">
+                <MenuItem x:Name="OpenMenu" Header="Открыть" InputGestureText="CTRL+O" Click="MenuItem_Click" Margin="0,0,-0.2,0"></MenuItem>
+                <MenuItem x:Name="SaveMenu" Header="Cохранить" InputGestureText="CTRL+S" Click="MenuItem_Click_1" ></MenuItem>
+                <MenuItem  Header="Выход" InputGestureText="ALT+F4" x:Name="ExitBut" Click="ExitBut_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem ItemContainerStyle="{StaticResource menuIemStyle}" Header="Добавить" ToolTip="Добавление элемента коллекции">
+                <MenuItem x:Name="AddPlMenu" Header="Футболист" InputGestureText="CTRL+P" MenuItem.Click="AddPlayer_Click"></MenuItem>
+                <MenuItem x:Name="AddClMenu" Header="Футбольный клуб" InputGestureText="CTRL+F" MenuItem.Click="AddClub_Click"></MenuItem>
+                <MenuItem x:Name="AddLMenu" Header="Футбольная лига" InputGestureText="CTRL+L" MenuItem.Click="AddLeague_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="PageShow" Header="Просмотр" ItemContainerStyle="{StaticResource menuIemStyle}">
+                <MenuItem x:Name="PlayerShow" Header="Футболисты"  Click="ShowPlayer_Click"/>
+                <MenuItem x:Name="ClubShow" Header="Клубы"  Click="ShowClub_Click"/>
+                <MenuItem x:Name="LeagueShow" Header="Лиги"  Click="ShowLeague_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="DiagramShow" Click="ShowDiagram_Click" Header="Диаграмма"/>
+            <MenuItem x:Name="Plugins" Visibility="Hidden" ItemContainerStyle="{StaticResource menuIemStyle}" Header="Плагины"></MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.34*"></ColumnDefinition>
+                <ColumnDefinition Width="0"></ColumnDefinition>
+                <ColumnDefinition Width="0.34*"></ColumnDefinition>
+                <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                <ColumnDefinition Width="0.28*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox VerticalContentAlignment="Center" Style="{StaticResource comboBoxStyle}" ItemContainerStyle="{StaticResource boxItemStyle}" x:Name="ChoiceComboBox" ToolTip="Выбрать коллекцию для показа" VerticalAlignment="Center" Margin="5" SelectedIndex="0" SelectionChanged="ChoiceComboBox_SelectionChanged">
+                <ComboBoxItem IsEnabled="False">Выбор коллекции</ComboBoxItem>
+                <ComboBoxItem>Футболисты</ComboBoxItem>
+                <ComboBoxItem>Футбольные клубы</ComboBoxItem>
+                <ComboBoxItem>Футбольные лиги</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Style="{StaticResource comboBoxStyle}" x:Name="FilterChoice" ItemContainerStyle="{StaticResource boxItemStyle}" IsEnabled="False" Grid.Column="2" ToolTip="Выбрать способ фильтрации" VerticalAlignment="Center" Margin="5" SelectedIndex="0" SelectionChanged="ChoiceComboBox_SelectionChanged">
+                <ComboBoxItem IsEnabled="False">Фильтрация</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="EditButton" Style="{StaticResource buttonStyle}" Grid.Column="3" Click="Edit_Click">Просмотр и редактирование</Button>
+            <Button x:Name="RemoveButton" Style="{StaticResource buttonStyle}" Grid.Column="4" Click="Remove_Click">Удалить</Button>
+        </Grid>
+        <ListView ItemContainerStyle="{StaticResource normal}" Grid.Row="3" Name="listpl">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Name}">ФИО</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Position}">Амплуа</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Number}">Номер</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Age}">Возраст</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Goals}">Голы</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Assist}">Передачи</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Club.Name}">Клуб</GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListBox HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}" ItemTemplate="{StaticResource ClubTempl}" Grid.Row="3" Name="listcl"/>
+        <ListBox HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ListBoxItemStyle}" ItemTemplate="{StaticResource LeaTempl}" Grid.Row="3" Name="listll"/>
+    </Grid>
+</Window>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="FootballManager.ShowPages"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FootballManager"
+        mc:Ignorable="d"
+        Title="Страничный просмотр" Height="500" Width="500"
+        >
+    <Window.Resources>
+        <Style x:Key="buttonStyle" TargetType="Button">
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="10" Direction="300" Color="BlueViolet"></DropShadowEffect>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Background" Value="Purple" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="RenderTransformOrigin"
+              Value=".5,.5" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                </Trigger>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetProperty="Height" >
+                                <DoubleAnimation From="20" To="30"
+                                                 Duration="0:0:3">
+                                    <DoubleAnimation.EasingFunction>
+                                        <ElasticEase EasingMode="EaseOut" Oscillations="5"></ElasticEase>
+                                    </DoubleAnimation.EasingFunction>
+                                </DoubleAnimation>
+                                
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard TargetProperty="Height" >
+                                <DoubleAnimation From="40" To="30"
+                                                 Duration="0:0:1"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.12*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="AtStart" Style="{StaticResource buttonStyle}" Margin="5" Content="В начало" Click="AtStart_Click"/>
+            <Button x:Name="Previous" Style="{StaticResource buttonStyle}" Margin="5" Grid.Column="1" Content="Предыдущий" Click="Previous_Click"/>
+            <Button x:Name="Next" Style="{StaticResource buttonStyle}" Margin="5" Grid.Column="2" Content="Следующий" Click="Next_Click"/>
+            <Button x:Name="AtEnd" Style="{StaticResource buttonStyle}" Margin="5" Grid.Column="3" Content="В конец" Click="AtEnd_Click"/>
+        </Grid>
+        <Frame NavigationUIVisibility="Hidden" Grid.Row="1" x:Name="loo"/>
+    </Grid>
+</Window>

@@ -1,0 +1,10 @@
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\ThirdPlugin.csprojResolveAssemblyReference.cache
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\PluginWindow.g.cs
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\ThirdPlugin_MarkupCompile.cache
+E:\Учеба_3_семестр\ИСП\test2\test2\bin\Debug\Plugins\ThirdPlugin.dll
+E:\Учеба_3_семестр\ИСП\test2\test2\bin\Debug\Plugins\ThirdPlugin.pdb
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\PluginWindow.baml
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\ThirdPlugin.g.resources
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\ThirdPlugin.csproj.CoreCompileInputs.cache
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\ThirdPlugin.dll
+E:\Учеба_3_семестр\ИСП\test2\ThirdPlugin\obj\Debug\ThirdPlugin.pdb

@@ -1,0 +1,26 @@
+﻿<Window x:Class="SecondPlugin.PluginWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SecondPlugin"
+             mc:Ignorable="d" 
+             Title="Поиск по клубам"
+             Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Фильтр:" Margin="5"></TextBlock>
+            <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Width="200" Margin="5"></TextBox>
+        </StackPanel>
+        <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding Items}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name, ValidatesOnDataErrors=True}"/>
+                <DataGridTextColumn Header="Главный тренер" Binding="{Binding Coach, ValidatesOnDataErrors=True}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
